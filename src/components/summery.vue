@@ -4,16 +4,21 @@
     <div class="container mx-auto">
       <div class="row" id="title-summery">
         <div class="main_title text-center">
-          වර්තමාන තත්වය
+          {{isLangEn ? "Current Situation": "වර්තමාන තත්වය"}}
           <br />
 
           <span id="la">Last update : {{ data.update_date_time }}</span>
         </div>
 
         <div id="switch">
-          <span id="toggle">Srilanka</span>
+          <span id="toggle">Sri Lanka</span>
           <v-switch v-model="switch1" inset></v-switch>
 Global
+        </div>
+        <div id="switch">
+          <span id="toggle">Sinhala</span>
+          <v-switch v-model="isLangEn" inset></v-switch>
+English
         </div>
       </div>
       <br />
@@ -23,9 +28,9 @@ Global
             <div id="content">
               <img src="../assets/corona.svg" alt id="title" />
               <br />
-              <span class="new">නව ආසාදිතයන්</span>
+              <span class="new">{{isLangEn ? "New Cases": "නව ආසාදිතයන්"}}</span>
               <span class="new-number">{{ new_infections}}</span>
-              <span class="all">මුලු ආසාදිතයන්</span>
+              <span class="all">{{isLangEn ? "Total Cases": "මුලු ආසාදිතයන්"}}</span>
               <span class="all-number">{{total_infections}}</span>
             </div>
           </div>
@@ -36,9 +41,9 @@ Global
             <div id="content">
               <img src="../assets/coroner.svg" alt id="title" />
               <br />
-              <span class="new">මිය ගිය ගණන</span>
+              <span class="new">{{isLangEn ? "New Deaths": "මිය ගිය ගණන"}}</span>
               <span class="new-number">{{new_deaths}}</span>
-              <span class="all">මිය ගිය මුලු ගණන</span>
+              <span class="all">{{isLangEn ? "Total Deaths": "මිය ගිය මුලු ගණන"}}</span>
               <span class="all-number">{{total_deaths}}</span>
             </div>
           </div>
@@ -49,12 +54,12 @@ Global
             <div id="content">
               <img src="../assets/recovered.svg" alt id="title" />
               <br />
-              <span class="new">සුවය ලැබූවන්</span>
+              <span class="new">{{isLangEn ? "Total Recovered": "සුවය ලැබූවන්"}}</span>
               <span class="new-number">{{total_recovered}}</span>
 
 
               
-              <span class="all">දැනට රෝහල් ගත කර ඇති මුලු සංඛ්‍යාව</span>
+              <span class="all">{{isLangEn ? "Current No. of People hospitalized": "දැනට රෝහල් ගත කර ඇති මුලු සංඛ්‍යාව"}}</span>
               <span class="all-number">{{total_admited}}</span>
             </div>
           </div>
@@ -67,8 +72,10 @@ Global
 <script>
 export default {
   data() {
+    const urlParams = new URLSearchParams(window.location.search);
     return {
       switch1: false,
+      isLangEn: urlParams.get("lang") !== null && urlParams.get("lang") == "en" ? true: false,
       data: null,
 
       new_infections: "",
@@ -136,9 +143,17 @@ export default {
           else{
               this.local();
           }
-        
+      },
+      isLangEn (type) {
+          if(type==true){
+              window.location.href = "?lang=en";
+          }
+          else{
+              window.location.href = "?lang=si";
+          }
       }
     },
+
 }
 
 </script>

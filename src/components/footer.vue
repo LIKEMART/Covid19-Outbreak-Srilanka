@@ -11,7 +11,7 @@
                     Powered by API provided by HPB
                 </div>
                <div class="col12 col-sm-12 col-md-12 sub" id="footer">
-                   coded by Vihanga Nivarthana @ Likemart
+                   coded by Vihanga Nivarthana @ &nbsp; <a href="https://likemart.asia/">&nbsp;Likemart</a>
                </div>
           </div>
       </div>

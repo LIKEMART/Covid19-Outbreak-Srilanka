@@ -3,37 +3,37 @@
       
       <div class="container"> 
 
-         <span id="hd">ශ්‍රී ලංකාවේ රෝහල්වල තොරතුරු</span> 
+         <span id="hd">{{isLangEn ? "Details of Sri Lankan Hospitals": "ශ්‍රී ලංකාවේ රෝහල්වල තොරතුරු"}}</span> 
            <div class="row" id="hosd">
            <div class="col-12 col-xs-12 col-sm-6 col-md-4" v-for="hospital in data" :key="hospital.id">
                
                  <div id="card" class="infected">
             <div id="content">
              <span class="h_title">
-                  {{hospital.hospital.name_si}}
+                  {{isLangEn ? hospital.hospital.name: hospital.hospital.name_si}}
                  </span> 
 <br>
                  <span id="admited">
 
-               ‍රෝහල් ගතවූ මුලු ශ්‍රී ලාංකිකයින් ගණන <br> 
+               ‍{{isLangEn ? "Total No. of Sri Lankans who have been treated": "රෝහල් ගතවූ මුලු ශ්‍රී ලාංකිකයින් ගණන"}} <br> 
                <span id="number">{{hospital.cumulative_local}}</span>
                </span>
 
                 <span id="admited">
 
-              රෝහල් ගතවූ මුලු විදේශිකයින් ගණන<br> 
+              {{isLangEn ? "Total No. of foreigners who have been treated": "රෝහල් ගතවූ මුලු විදේශිකයින් ගණන"}}<br> 
                <span id="number">{{hospital.cumulative_foreign}}</span>
                </span>
 
                <span id="admited">
 
-               ‍‍ප්‍රතිකාර ලබන මුලු ශ්‍රී ලාංකිකයින් ගණන <br> 
+               ‍‍{{isLangEn ? "Total No. of Sri Lankans Receiving Treatment": "ප්‍රතිකාර ලබන මුලු ශ්‍රී ලාංකිකයින් ගණන"}} <br> 
                <span id="number">{{hospital.treatment_local}}</span>
                </span>
 
                <span id="admited">
 
-              ප්‍රතිකාර ලබන මුලු විදේශිකයින් ගණන<br> 
+              {{isLangEn ? "Total No. of Foreigners Receiving Treatment": "ප්‍රතිකාර ලබන මුලු විදේශිකයින් ගණන"}}<br> 
                <span id="number">{{hospital.treatment_foreign}}</span>
                </span>
             </div>
@@ -50,8 +50,10 @@
 <script>
 export default {
   data() {
+    const urlParams = new URLSearchParams(window.location.search);
     return {
-      data:null
+      data:null,
+      isLangEn: urlParams.get("lang") !== null && urlParams.get("lang") == "en" ? true: false,
     };
   },
 
@@ -89,6 +91,7 @@ export default {
           }
         
       }
+      
     },
 }
 
